@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import InputForm from "../components/InputForm";
+import TableContainer from "./TableContainer";
 
 export default class SearchContainer extends Component {
   state = {
-    inputValue: ""
+    inputValue: "",
+    cityName: "",
+    cityTemp: ""
   };
 
   // Update state from change in child component
@@ -37,13 +40,22 @@ export default class SearchContainer extends Component {
 
   render() {
     return (
-      <InputForm
-        input={"text"}
-        placeholder={"Enter a player's name..."}
-        buttonText={"Submit"}
-        onClick={() => this.callApi(this.state.inputValue)}
-        onChangeValue={this.handleChangeValue}
-      />
+      <div>
+        <InputForm
+          input={"text"}
+          placeholder={"Enter a player's name..."}
+          buttonText={"Submit"}
+          onClick={() => this.callApi(this.state.inputValue)}
+          onChangeValue={this.handleChangeValue}
+        />
+        <TableContainer
+          headerTitle={this.state.cityName}
+          tableTitleCity={"City: "}
+          tableCity={this.state.cityName}
+          tableTitleTemp={"Temp: "}
+          tableTemp={this.state.cityTemp}
+        />
+      </div>
     );
   }
 }

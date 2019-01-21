@@ -5,9 +5,8 @@ import SearchContainer from "./containers/SearchContainer";
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className={"row container-fluid"}>
         <SearchContainer />
-        <TableContainer />
       </div>
     );
   }

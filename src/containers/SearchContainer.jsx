@@ -6,7 +6,12 @@ export default class SearchContainer extends Component {
   state = {
     inputValue: "",
     cityName: "",
-    cityTemp: ""
+    cityTemp: "",
+    weatherData: []
+    // playerPersonalData: [],
+    // playerBackgroundData: [],
+    // playerStatsDefense: [],
+    // playerStatsBatting: []
   };
 
   // Update state from change in child component
@@ -17,12 +22,11 @@ export default class SearchContainer extends Component {
   };
 
   // Temporary API call until I can get API key for MySportsFeed
+  // "https://api.mysportsfeeds.com/v2.0/pull/mlb/2019-regular?player={" + lastName + "-" firstName + "}/player_stats_totals.json";
   callApi = zip => {
-    fetch(
-      "https://api.openweathermap.org/data/2.5/weather?zip=" +
-        zip +
-        "&appid=6dfb9b4baf665d9ad09363be550e786f&units=imperial"
-    )
+    let API1 = "https://api.openweathermap.org/data/2.5/weather?zip=";
+    let API2 = "&appid=6dfb9b4baf665d9ad09363be550e786f&units=imperial";
+    fetch(API1 + zip + API2)
       .then(result => {
         return result.json();
       })
@@ -30,10 +34,18 @@ export default class SearchContainer extends Component {
         // Do something with the result
         this.setState({
           cityName: jsonResult.name,
-          cityTemp: jsonResult.main.temp
+          cityTemp: jsonResult.main.temp,
+          weatherData: jsonResult.main
+          // playerPersonalData: jsonResult.playerStatsTotal[0].player[0],
+          // playerBackgroundData: jsonResult.playerStatsTotal[0].player[1],
+          // playerStatsDefense: jsonResult.playerStatsTotal[0].player[2],
+          // playerStatsBatting: jsonResult.playerStatsTotal[0].player[0]
         });
+        console.log(this.state.weatherData.clouds.all);
         console.log(this.state.cityName);
         console.log(this.state.cityTemp);
+        console.log(this.state.weatherData.main.temp);
+        console.log(this.state.weatherData);
       })
       .catch(error => console.log(error));
   };
@@ -53,7 +65,7 @@ export default class SearchContainer extends Component {
           tableTitleCity={"City: "}
           tableCity={this.state.cityName}
           tableTitleTemp={"Temp: "}
-          tableTemp={this.state.cityTemp}
+          tableTemp={this.state.weatherData.temp}
         />
       </div>
     );

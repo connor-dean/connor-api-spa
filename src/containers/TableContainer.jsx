@@ -5,13 +5,11 @@ import Table from "../components/Table";
 export default class TableContainer extends Component {
   render() {
     return (
-      <div>
+      <div className={"col-7"}>
         <Header headerTitle={this.props.headerTitle} />
         <Table
-          tableTitleCity={this.props.tableTitleCity}
-          tableCity={this.props.tableCity}
-          tableTitleTemp={this.props.tableTitleTemp}
-          tableTemp={this.props.tableTemp}
+          tableHeader={this.props.tableHeader}
+          tableData={this.props.tableData}
         />
       </div>
     );

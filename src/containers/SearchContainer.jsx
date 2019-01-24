@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import InputForm from "../components/InputForm";
 import TableContainer from "./TableContainer";
+import Button from "../components/Button";
+import ReactTable from "react-table";
+import Table from "../components/Table";
+import TableHeader from "../components/TableRowHeader";
 
 export default class SearchContainer extends Component {
   state = {
     inputValue: "",
-    cityName: "",
-    cityTemp: "",
-    weatherData: []
+    weatherData: [],
+    weatherDataMain: [],
+    weatherDataWind: []
     // playerPersonalData: [],
     // playerBackgroundData: [],
     // playerStatsDefense: [],
@@ -18,6 +22,15 @@ export default class SearchContainer extends Component {
   handleChangeValue = e => {
     this.setState({ inputValue: e.target.value }, () => {
       console.log("SearchContainer state ", this.state.inputValue);
+    });
+  };
+
+  handleReset = () => {
+    this.setState({
+      inputValue: "",
+      weatherData: [],
+      weatherDataMain: [],
+      weatherDataWind: []
     });
   };
 
@@ -33,26 +46,31 @@ export default class SearchContainer extends Component {
       .then(jsonResult => {
         // Do something with the result
         this.setState({
-          cityName: jsonResult.name,
-          cityTemp: jsonResult.main.temp,
-          weatherData: jsonResult.main
+          weatherData: jsonResult,
+          weatherDataMain: jsonResult.main,
+          weatherDataWind: jsonResult.wind
+
+          /*
+          Save fielding, pitching, and other data under different pieces of state
+          and create components to handle the different tables
+        */
           // playerPersonalData: jsonResult.playerStatsTotal[0].player[0],
           // playerBackgroundData: jsonResult.playerStatsTotal[0].player[1],
           // playerStatsDefense: jsonResult.playerStatsTotal[0].player[2],
           // playerStatsBatting: jsonResult.playerStatsTotal[0].player[0]
         });
-        console.log(this.state.weatherData.clouds.all);
-        console.log(this.state.cityName);
-        console.log(this.state.cityTemp);
-        console.log(this.state.weatherData.main.temp);
-        console.log(this.state.weatherData);
       })
       .catch(error => console.log(error));
   };
 
   render() {
+    const tableValues = [
+      this.state.weatherData,
+      this.state.weatherDataMain,
+      this.state.weatherDataWind
+    ];
     return (
-      <div>
+      <React.Fragment>
         <InputForm
           input={"text"}
           placeholder={"Enter a player's name..."}
@@ -61,13 +79,15 @@ export default class SearchContainer extends Component {
           onChangeValue={this.handleChangeValue}
         />
         <TableContainer
-          headerTitle={this.state.cityName}
-          tableTitleCity={"City: "}
-          tableCity={this.state.cityName}
-          tableTitleTemp={"Temp: "}
-          tableTemp={this.state.weatherData.temp}
+          headerTitle={this.state.weatherData.name}
+          tableData={tableValues[1]}
         />
-      </div>
+        <Button
+          className={"btn btn-secondary"}
+          buttonText={"Reset"}
+          onClick={this.handleReset}
+        />
+      </React.Fragment>
     );
   }
 }

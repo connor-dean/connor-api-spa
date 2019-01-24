@@ -1,19 +1,21 @@
 import React, { Component } from "react";
+import TableItem from "./TableItem";
+import TableRowHeader from "./TableRowHeader";
 
 export default class Table extends Component {
   render() {
+    console.log(Object.values(this.props.tableData));
     return (
       <div>
+        {/* <TableRowHeader>{this.props.tableHeader}</TableRowHeader> */}
         <table className={style}>
           <tbody>
-            <tr>
-              <th>{this.props.tableTitleCity}</th>
-              <td>{this.props.tableCity}</td>
-            </tr>
-            <tr>
-              <th>{this.props.tableTitleTemp}</th>
-              <td>{this.props.tableTemp}</td>
-            </tr>
+            {Object.values(this.props.tableData).map((data, key) => (
+              <tr key={key}>
+                <th style={style}>{key}</th>
+                <td>{data}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -22,5 +24,7 @@ export default class Table extends Component {
 }
 
 const style = {
-  width: 100
+  paddingTop: 10,
+  paddingBottom: 10,
+  paddingRight: 10
 };

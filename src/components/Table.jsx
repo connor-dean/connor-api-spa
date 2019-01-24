@@ -7,13 +7,12 @@ export default class Table extends Component {
     console.log(Object.values(this.props.tableData));
     return (
       <div>
-        {/* <TableRowHeader>{this.props.tableHeader}</TableRowHeader> */}
         <table className={style}>
           <tbody>
             {Object.values(this.props.tableData).map((data, key) => (
               <tr key={key}>
-                <th style={style}>{key}</th>
-                <td>{data}</td>
+                <TableRowHeader style={style} tableHeader={key} />
+                <TableItem tableData={data} />
               </tr>
             ))}
           </tbody>

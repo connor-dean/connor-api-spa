@@ -83,6 +83,7 @@ export default class SearchContainer extends Component {
           headerTitle={this.state.weatherData.name}
           tableData={tableValues[1]}
         />
+        <TableContainer tableData={tableValues[2]} />
         <Button
           className={"btn btn-secondary"}
           buttonText={"Reset"}

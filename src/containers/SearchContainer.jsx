@@ -72,6 +72,7 @@ export default class SearchContainer extends Component {
     return (
       <React.Fragment>
         <InputForm
+          value={this.state.inputValue}
           input={"text"}
           placeholder={"Enter a player's name..."}
           buttonText={"Submit"}

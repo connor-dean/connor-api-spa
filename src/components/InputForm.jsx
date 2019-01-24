@@ -10,6 +10,7 @@ export default class InputForm extends Component {
     return (
       <div className={"col-4 mt-5 ml-5 mb-5 mr-5 input-group"}>
         <input
+          value={this.props.value}
           style={style.inputStyle}
           className={"form-control"}
           input={inputType}

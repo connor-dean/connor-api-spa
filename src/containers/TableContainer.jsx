@@ -8,6 +8,7 @@ export default class TableContainer extends Component {
       <div className={"col-7"}>
         <Header headerTitle={this.props.headerTitle} />
         <Table
+          key={this.props.key}
           tableHeader={this.props.tableHeader}
           tableData={this.props.tableData}
         />

@@ -4,15 +4,14 @@ import TableRowHeader from "./TableRowHeader";
 
 export default class Table extends Component {
   render() {
-    console.log(Object.values(this.props.tableData));
     return (
       <div>
         <table className={style}>
           <tbody>
             {Object.values(this.props.tableData).map((data, key) => (
               <tr key={key}>
-                <TableRowHeader style={style} tableHeader={key} />
-                <TableItem tableData={data} />
+                <TableRowHeader style={style} tableHeader={data.id} />
+                <TableItem tableData={data.name} />
               </tr>
             ))}
           </tbody>

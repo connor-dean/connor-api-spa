@@ -6,10 +6,12 @@ import Button from "../components/Button";
 export default class SearchContainer extends Component {
   state = {
     inputValue: "",
-    seasonStats: [],
-    seasonStatsId: [],
-    seasonStatsName: []
+    seasonStats: []
   };
+
+  componentWillMount() {
+    this.callApi("");
+  }
 
   // Update state from change in child component
   handleChangeValue = e => {
@@ -21,30 +23,19 @@ export default class SearchContainer extends Component {
   handleReset = () => {
     this.setState({
       inputValue: "",
-      weatherData: [],
-      weatherDataMain: [],
-      weatherDataWind: [],
-      seasonStats: [],
-      seasonStatsId: [],
-      seasonStatsName: []
+      seasonStats: []
     });
   };
 
-  callApi() {
-    fetch("https://statsapi.web.nhl.com/api/v1/teams")
+  callApi(id) {
+    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + id)
       .then(result => {
         return result.json();
       })
       .then(jsonResult => {
         this.setState({
-          seasonStats: jsonResult.teams,
-          seasonStatsId: jsonResult.teams.id,
-          seasonStatsName: jsonResult.teams.name
+          seasonStats: jsonResult.teams
         });
-        for (var i = 0; i < this.state.seasonStats.length; i++) {
-          console.log(this.state.seasonStats[i].id);
-          console.log(this.state.seasonStats[i].name);
-        }
       })
       .catch(error => console.log(error));
   }
@@ -57,7 +48,7 @@ export default class SearchContainer extends Component {
           input={"text"}
           placeholder={"Enter a player's name..."}
           buttonText={"Submit"}
-          onClick={() => this.callApi()}
+          onClick={() => this.callApi(this.state.inputValue)}
           onChangeValue={this.handleChangeValue}
         />
         <TableContainer

@@ -6,11 +6,12 @@ import Button from "../components/Button";
 export default class SearchContainer extends Component {
   state = {
     inputValue: "",
-    seasonStats: []
+    seasonStats: [],
+    seasonStatsStatic: []
   };
 
   componentWillMount() {
-    this.callApi("");
+    this.callApi("", true);
   }
 
   // Update state from change in child component
@@ -20,22 +21,29 @@ export default class SearchContainer extends Component {
     });
   };
 
-  handleReset = () => {
+  handleReset = e => {
     this.setState({
       inputValue: "",
       seasonStats: []
     });
   };
 
-  callApi(id) {
+  callApi(id, isStaticTable) {
+    let isInitialState = isStaticTable;
     fetch("https://statsapi.web.nhl.com/api/v1/teams/" + id)
       .then(result => {
         return result.json();
       })
       .then(jsonResult => {
-        this.setState({
-          seasonStats: jsonResult.teams
-        });
+        if (isInitialState) {
+          this.setState({
+            seasonStatsStatic: jsonResult.teams
+          });
+        } else {
+          this.setState({
+            seasonStats: jsonResult.teams
+          });
+        }
       })
       .catch(error => console.log(error));
   }
@@ -46,19 +54,19 @@ export default class SearchContainer extends Component {
         <InputForm
           value={this.state.inputValue}
           input={"text"}
-          placeholder={"Enter a player's name..."}
+          placeholder={"Enter a team's ID..."}
           buttonText={"Submit"}
           onClick={() => this.callApi(this.state.inputValue)}
           onChangeValue={this.handleChangeValue}
+          onHandleReset={this.handleReset}
         />
         <TableContainer
           headerTitle={"Team IDs"}
-          tableData={this.state.seasonStats}
+          tableData={this.state.seasonStatsStatic}
         />
-        <Button
-          className={"btn btn-secondary"}
-          buttonText={"Reset"}
-          onClick={this.handleReset}
+        <TableContainer
+          headerTitle={this.state.seasonStats.name}
+          tableData={this.state.seasonStats}
         />
       </React.Fragment>
     );

@@ -4,7 +4,7 @@ import SearchContainer from "./containers/SearchContainer";
 class App extends Component {
   render() {
     return (
-      <div className={"row container-fluid"}>
+      <div>
         <SearchContainer />
       </div>
     );

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Button from "./Button";
 
 export default class InputForm extends Component {
   state = {
@@ -8,7 +9,7 @@ export default class InputForm extends Component {
   render() {
     const { inputType, placeholder, onClick, buttonText } = this.props;
     return (
-      <div className={"col-4 mt-5 ml-5 mb-5 mr-5 input-group"}>
+      <div className={"col-4 m-5"}>
         <input
           value={this.props.value}
           style={style.inputStyle}
@@ -20,6 +21,11 @@ export default class InputForm extends Component {
         <button className={"btn btn-primary"} onClick={onClick}>
           {buttonText}
         </button>
+        <Button
+          className={"btn btn-secondary"}
+          buttonText={"Reset"}
+          onClick={this.props.onHandleReset}
+        />
       </div>
     );
   }

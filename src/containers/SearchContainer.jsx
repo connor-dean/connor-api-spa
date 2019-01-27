@@ -5,71 +5,104 @@ import TableContainer from "./TableContainer";
 export default class SearchContainer extends Component {
   state = {
     inputValue: "",
-    seasonStats: [],
-    seasonStatsStatic: []
+    teamIdTable: [],
+    statsSingleSeasonValues: [],
+    statsRegularSeasonValues: [],
+    teamHeader: "",
+    isError: ""
   };
 
   componentWillMount() {
-    this.callApi("", true);
+    this.initializeIdTable();
   }
 
-  // Update state from change in child component
   handleChangeValue = e => {
-    this.setState({ inputValue: e.target.value }, () => {
-      console.log("SearchContainer state ", this.state.inputValue);
-    });
+    this.setState({ inputValue: e.target.value }, () => {});
   };
 
   handleReset = () => {
     this.setState({
       inputValue: "",
-      seasonStats: []
+      statsSingleSeasonValues: [],
+      statsRegularSeasonValues: [],
+      teamHeader: "",
+      isError: false
     });
   };
 
-  callApi(id, isStaticTable) {
-    let isInitialState = isStaticTable;
-    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + id)
+  initializeIdTable() {
+    fetch("https://statsapi.web.nhl.com/api/v1/teams")
       .then(result => {
         return result.json();
       })
       .then(jsonResult => {
-        if (isInitialState) {
-          this.setState({
-            seasonStatsStatic: jsonResult.teams
-          });
-        } else {
-          this.setState({
-            seasonStats: jsonResult.teams
-          });
-        }
+        this.setState({
+          teamIdTable: jsonResult.teams,
+          isError: false
+        });
       })
-      .catch(error => console.log(error));
+      .catch(error =>
+        this.setState({
+          isError: true
+        })
+      );
+  }
+
+  callApi(teamId) {
+    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + teamId + "/stats")
+      .then(result => {
+        return result.json();
+      })
+      .then(jsonResult => {
+        this.setState({
+          teamHeader: jsonResult.stats[0].splits[0].team.name,
+          statsSingleSeasonValues: Object.values(
+            jsonResult.stats[0].splits[0].stat
+          ),
+          statsRegularSeasonValues: Object.values(
+            jsonResult.stats[1].splits[0].stat
+          ),
+          isError: false
+        });
+      })
+      .catch(error =>
+        this.setState({
+          isError: true
+        })
+      );
   }
 
   render() {
-    console.log(this.state.seasonStats);
     return (
       <React.Fragment>
-        <InputForm
-          value={this.state.inputValue}
-          input={"text"}
-          placeholder={"Enter a team's ID..."}
-          buttonText={"Submit"}
-          onClick={() => this.callApi(this.state.inputValue)}
-          onChangeValue={this.handleChangeValue}
-          onHandleReset={this.handleReset}
-        />
-        <TableContainer
-          isIdTable={true}
-          headerTitle={"Team IDs"}
-          tableData={this.state.seasonStatsStatic}
-        />
-        <TableContainer
-          isIdTable={false}
-          headerTitle={this.state.seasonStats.name}
-          tableData={this.state.seasonStats}
-        />
+        <div className="row">
+          <div className="col-3">
+            <InputForm
+              value={this.state.inputValue}
+              input={"text"}
+              placeholder={"Enter a team's ID..."}
+              buttonText={"Submit"}
+              onClick={() => this.callApi(this.state.inputValue)}
+              onChangeValue={this.handleChangeValue}
+              onHandleReset={this.handleReset}
+            />
+            <TableContainer
+              isIdTable={true}
+              headerTitle={"Team IDs"}
+              tableData={this.state.teamIdTable}
+            />
+          </div>
+          <div className="col-9">
+            <TableContainer
+              isError={this.state.isError}
+              isIdTable={false}
+              headerTitle={this.state.teamHeader}
+              tableHeader={this.state.statsSingleSeason}
+              tableDataSingleSeasonValues={this.state.statsSingleSeasonValues}
+              tableDataRegularSeasonValues={this.state.statsRegularSeasonValues}
+            />
+          </div>
+        </div>
       </React.Fragment>
     );
   }

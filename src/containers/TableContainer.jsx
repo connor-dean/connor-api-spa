@@ -4,15 +4,23 @@ import Table from "../components/Table";
 
 export default class TableContainer extends Component {
   render() {
+    const {
+      headerTitle,
+      isIdTable,
+      key,
+      tableData,
+      tableDataSingleSeasonValues,
+      tableDataRegularSeasonValues
+    } = this.props;
     return (
       <div className={"col-7"}>
-        <Header headerTitle={this.props.headerTitle} />
+        <Header headerTitle={headerTitle} />
         <Table
-          isIdTable={this.props.isIdTable}
-          key={this.props.key}
-          tableData={this.props.tableData}
-          tableDataSingleSeasonValues={this.props.tableDataSingleSeasonValues}
-          tableDataRegularSeasonValues={this.props.tableDataRegularSeasonValues}
+          isIdTable={isIdTable}
+          key={key}
+          tableData={tableData}
+          tableDataSingleSeasonValues={tableDataSingleSeasonValues}
+          tableDataRegularSeasonValues={tableDataRegularSeasonValues}
         />
       </div>
     );

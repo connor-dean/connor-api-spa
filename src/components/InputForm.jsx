@@ -7,16 +7,24 @@ export default class InputForm extends Component {
   };
 
   render() {
-    const { inputType, placeholder, onClick, buttonText } = this.props;
+    const {
+      inputType,
+      placeholder,
+      onClick,
+      buttonText,
+      value,
+      onChangeValue,
+      onHandleReset
+    } = this.props;
     return (
       <div className={"col-4 m-5"}>
         <input
-          value={this.props.value}
+          value={value}
           style={style.inputStyle}
           className={"form-control"}
           input={inputType}
           placeholder={placeholder}
-          onChange={this.props.onChangeValue}
+          onChange={onChangeValue}
         />
         <button className={"btn btn-primary"} onClick={onClick}>
           {buttonText}
@@ -24,7 +32,7 @@ export default class InputForm extends Component {
         <Button
           className={"btn btn-secondary"}
           buttonText={"Reset"}
-          onClick={this.props.onHandleReset}
+          onClick={onHandleReset}
         />
       </div>
     );

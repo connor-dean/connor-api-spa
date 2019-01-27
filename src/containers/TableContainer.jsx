@@ -13,7 +13,7 @@ export default class TableContainer extends Component {
       tableDataRegularSeasonValues
     } = this.props;
     return (
-      <div className={"col-7"}>
+      <div className={"ml-5"}>
         <Header headerTitle={headerTitle} />
         <Table
           isIdTable={isIdTable}

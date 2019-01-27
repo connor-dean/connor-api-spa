@@ -17,7 +17,7 @@ export default class InputForm extends Component {
       onHandleReset
     } = this.props;
     return (
-      <div className={"col-4 m-5"}>
+      <div className={"m-5"}>
         <input
           value={value}
           style={style.inputStyle}
@@ -26,7 +26,7 @@ export default class InputForm extends Component {
           placeholder={placeholder}
           onChange={onChangeValue}
         />
-        <button className={"btn btn-primary"} onClick={onClick}>
+        <button className={"btn btn-primary mr-1"} onClick={onClick}>
           {buttonText}
         </button>
         <Button
@@ -42,6 +42,8 @@ export default class InputForm extends Component {
 const style = {
   inputStyle: {
     padding: 10,
-    marginRight: 5
+    marginRight: 5,
+    marginBottom: 5,
+    width: "200px"
   }
 };

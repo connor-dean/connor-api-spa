@@ -15,7 +15,6 @@ export default class SearchContainer extends Component {
     this.initializeIdTable();
   }
 
-  // Update state from change in child component
   handleChangeValue = e => {
     this.setState({ inputValue: e.target.value }, () => {});
   };
@@ -42,8 +41,8 @@ export default class SearchContainer extends Component {
       .catch(error => console.log(error));
   }
 
-  callApi(id) {
-    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + id + "/stats")
+  callApi(teamId) {
+    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + teamId + "/stats")
       .then(result => {
         return result.json();
       })
@@ -64,27 +63,33 @@ export default class SearchContainer extends Component {
   render() {
     return (
       <React.Fragment>
-        <InputForm
-          value={this.state.inputValue}
-          input={"text"}
-          placeholder={"Enter a team's ID..."}
-          buttonText={"Submit"}
-          onClick={() => this.callApi(this.state.inputValue)}
-          onChangeValue={this.handleChangeValue}
-          onHandleReset={this.handleReset}
-        />
-        <TableContainer
-          isIdTable={true}
-          headerTitle={"Team IDs"}
-          tableData={this.state.teamIdTable}
-        />
-        <TableContainer
-          isIdTable={false}
-          headerTitle={this.state.teamHeader}
-          tableHeader={this.state.statsSingleSeason}
-          tableDataSingleSeasonValues={this.state.statsSingleSeasonValues}
-          tableDataRegularSeasonValues={this.state.statsRegularSeasonValues}
-        />
+        <div className="row">
+          <div className="col-4">
+            <InputForm
+              value={this.state.inputValue}
+              input={"text"}
+              placeholder={"Enter a team's ID..."}
+              buttonText={"Submit"}
+              onClick={() => this.callApi(this.state.inputValue)}
+              onChangeValue={this.handleChangeValue}
+              onHandleReset={this.handleReset}
+            />
+            <TableContainer
+              isIdTable={true}
+              headerTitle={"Team IDs"}
+              tableData={this.state.teamIdTable}
+            />
+          </div>
+          <div className="col-8">
+            <TableContainer
+              isIdTable={false}
+              headerTitle={this.state.teamHeader}
+              tableHeader={this.state.statsSingleSeason}
+              tableDataSingleSeasonValues={this.state.statsSingleSeasonValues}
+              tableDataRegularSeasonValues={this.state.statsRegularSeasonValues}
+            />
+          </div>
+        </div>
       </React.Fragment>
     );
   }

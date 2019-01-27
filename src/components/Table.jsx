@@ -5,40 +5,47 @@ import TableRowHeader from "./TableRowHeader";
 export default class Table extends Component {
   render() {
     const { isIdTable, tableData, tableDataSingleSeasonValues } = this.props;
-
     return (
       <div>
-        <table className={style}>
-          <tbody>
-            {isIdTable
-              ? Object.values(tableData).map((data, key) => (
-                  <tr key={key}>
-                    <TableRowHeader style={style} tableHeader={data.id} />
-                    <TableItem
-                      tableData={data.name + " - " + data.abbreviation}
-                    />
-                  </tr>
-                ))
-              : tableDataSingleSeasonValues.map((data, key) => (
-                  <React.Fragment>
-                    <tr key={key}>
-                      <TableRowHeader
-                        style={style}
-                        tableHeader={regularSeasonHeaders[key]}
-                      />
-                      <TableItem tableData={data} />
-                    </tr>
-                  </React.Fragment>
-                ))}
-          </tbody>
-        </table>
+        {isIdTable ? (
+          <table className={style}>
+            <tbody>
+              {Object.values(tableData).map((data, key) => (
+                <tr key={key}>
+                  <TableRowHeader style={style} tableHeader={data.id} />
+                  <TableItem
+                    tableData={data.name + " - " + data.abbreviation}
+                  />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <table className={"table"}>
+            <tbody>
+              {tableDataSingleSeasonValues.map((data, key) => (
+                <tr key={key}>
+                  <TableRowHeader
+                    style={style}
+                    tableHeader={regularSeasonHeaders[key]}
+                  />
+                  <TableItem tableData={data} />
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     );
   }
 }
 
 const style = {
-  width: "10px"
+  width: "10px",
+  overFlowTable: {
+    height: "100px",
+    overflow: "auto"
+  }
 };
 
 const regularSeasonHeaders = [

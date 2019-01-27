@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import InputForm from "../components/InputForm";
 import TableContainer from "./TableContainer";
-import Button from "../components/Button";
 
 export default class SearchContainer extends Component {
   state = {
@@ -21,7 +20,7 @@ export default class SearchContainer extends Component {
     });
   };
 
-  handleReset = e => {
+  handleReset = () => {
     this.setState({
       inputValue: "",
       seasonStats: []
@@ -49,6 +48,7 @@ export default class SearchContainer extends Component {
   }
 
   render() {
+    console.log(this.state.seasonStats);
     return (
       <React.Fragment>
         <InputForm
@@ -61,10 +61,12 @@ export default class SearchContainer extends Component {
           onHandleReset={this.handleReset}
         />
         <TableContainer
+          isIdTable={true}
           headerTitle={"Team IDs"}
           tableData={this.state.seasonStatsStatic}
         />
         <TableContainer
+          isIdTable={false}
           headerTitle={this.state.seasonStats.name}
           tableData={this.state.seasonStats}
         />

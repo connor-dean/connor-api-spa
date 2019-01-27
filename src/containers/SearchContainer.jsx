@@ -5,7 +5,6 @@ import TableContainer from "./TableContainer";
 export default class SearchContainer extends Component {
   state = {
     inputValue: "",
-    seasonStats: [],
     teamIdTable: [],
     statsSingleSeasonValues: [],
     statsRegularSeasonValues: [],
@@ -24,7 +23,9 @@ export default class SearchContainer extends Component {
   handleReset = () => {
     this.setState({
       inputValue: "",
-      seasonStats: []
+      statsSingleSeasonValues: [],
+      statsRegularSeasonValues: [],
+      teamHeader: ""
     });
   };
 

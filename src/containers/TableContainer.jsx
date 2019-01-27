@@ -10,8 +10,9 @@ export default class TableContainer extends Component {
         <Table
           isIdTable={this.props.isIdTable}
           key={this.props.key}
-          tableHeader={this.props.tableHeader}
           tableData={this.props.tableData}
+          tableDataSingleSeasonValues={this.props.tableDataSingleSeasonValues}
+          tableDataRegularSeasonValues={this.props.tableDataRegularSeasonValues}
         />
       </div>
     );

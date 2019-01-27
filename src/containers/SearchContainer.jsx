@@ -6,18 +6,19 @@ export default class SearchContainer extends Component {
   state = {
     inputValue: "",
     seasonStats: [],
-    seasonStatsStatic: []
+    teamIdTable: [],
+    statsSingleSeasonValues: [],
+    statsRegularSeasonValues: [],
+    teamHeader: ""
   };
 
   componentWillMount() {
-    this.callApi("", true);
+    this.initializeIdTable();
   }
 
   // Update state from change in child component
   handleChangeValue = e => {
-    this.setState({ inputValue: e.target.value }, () => {
-      console.log("SearchContainer state ", this.state.inputValue);
-    });
+    this.setState({ inputValue: e.target.value }, () => {});
   };
 
   handleReset = () => {
@@ -27,28 +28,39 @@ export default class SearchContainer extends Component {
     });
   };
 
-  callApi(id, isStaticTable) {
-    let isInitialState = isStaticTable;
-    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + id)
+  initializeIdTable() {
+    fetch("https://statsapi.web.nhl.com/api/v1/teams")
       .then(result => {
         return result.json();
       })
       .then(jsonResult => {
-        if (isInitialState) {
-          this.setState({
-            seasonStatsStatic: jsonResult.teams
-          });
-        } else {
-          this.setState({
-            seasonStats: jsonResult.teams
-          });
-        }
+        this.setState({
+          teamIdTable: jsonResult.teams
+        });
+      })
+      .catch(error => console.log(error));
+  }
+
+  callApi(id) {
+    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + id + "/stats")
+      .then(result => {
+        return result.json();
+      })
+      .then(jsonResult => {
+        this.setState({
+          teamHeader: jsonResult.stats[0].splits[0].team.name,
+          statsSingleSeasonValues: Object.values(
+            jsonResult.stats[0].splits[0].stat
+          ),
+          statsRegularSeasonValues: Object.values(
+            jsonResult.stats[1].splits[0].stat
+          )
+        });
       })
       .catch(error => console.log(error));
   }
 
   render() {
-    console.log(this.state.seasonStats);
     return (
       <React.Fragment>
         <InputForm
@@ -63,12 +75,14 @@ export default class SearchContainer extends Component {
         <TableContainer
           isIdTable={true}
           headerTitle={"Team IDs"}
-          tableData={this.state.seasonStatsStatic}
+          tableData={this.state.teamIdTable}
         />
         <TableContainer
           isIdTable={false}
-          headerTitle={this.state.seasonStats.name}
-          tableData={this.state.seasonStats}
+          headerTitle={this.state.teamHeader}
+          tableHeader={this.state.statsSingleSeason}
+          tableDataSingleSeasonValues={this.state.statsSingleSeasonValues}
+          tableDataRegularSeasonValues={this.state.statsRegularSeasonValues}
         />
       </React.Fragment>
     );

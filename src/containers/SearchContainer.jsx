@@ -8,7 +8,8 @@ export default class SearchContainer extends Component {
     teamIdTable: [],
     statsSingleSeasonValues: [],
     statsRegularSeasonValues: [],
-    teamHeader: ""
+    teamHeader: "",
+    isError: ""
   };
 
   componentWillMount() {
@@ -24,7 +25,8 @@ export default class SearchContainer extends Component {
       inputValue: "",
       statsSingleSeasonValues: [],
       statsRegularSeasonValues: [],
-      teamHeader: ""
+      teamHeader: "",
+      isError: false
     });
   };
 
@@ -35,10 +37,15 @@ export default class SearchContainer extends Component {
       })
       .then(jsonResult => {
         this.setState({
-          teamIdTable: jsonResult.teams
+          teamIdTable: jsonResult.teams,
+          isError: false
         });
       })
-      .catch(error => console.log(error));
+      .catch(error =>
+        this.setState({
+          isError: true
+        })
+      );
   }
 
   callApi(teamId) {
@@ -54,17 +61,22 @@ export default class SearchContainer extends Component {
           ),
           statsRegularSeasonValues: Object.values(
             jsonResult.stats[1].splits[0].stat
-          )
+          ),
+          isError: false
         });
       })
-      .catch(error => console.log(error));
+      .catch(error =>
+        this.setState({
+          isError: true
+        })
+      );
   }
 
   render() {
     return (
       <React.Fragment>
         <div className="row">
-          <div className="col-4">
+          <div className="col-3">
             <InputForm
               value={this.state.inputValue}
               input={"text"}
@@ -80,8 +92,9 @@ export default class SearchContainer extends Component {
               tableData={this.state.teamIdTable}
             />
           </div>
-          <div className="col-8">
+          <div className="col-9">
             <TableContainer
+              isError={this.state.isError}
               isIdTable={false}
               headerTitle={this.state.teamHeader}
               tableHeader={this.state.statsSingleSeason}

@@ -7,6 +7,7 @@ export default class TableContainer extends Component {
     const {
       headerTitle,
       isIdTable,
+      isError,
       key,
       tableData,
       tableDataSingleSeasonValues,
@@ -14,7 +15,7 @@ export default class TableContainer extends Component {
     } = this.props;
     return (
       <div className={"ml-5"}>
-        <Header headerTitle={headerTitle} />
+        <Header isError={isError} headerTitle={headerTitle} />
         <Table
           isIdTable={isIdTable}
           key={key}

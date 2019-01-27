@@ -4,7 +4,12 @@ import TableRowHeader from "./TableRowHeader";
 
 export default class Table extends Component {
   render() {
-    const { isIdTable, tableData, tableDataSingleSeasonValues } = this.props;
+    const {
+      isIdTable,
+      tableData,
+      tableDataSingleSeasonValues,
+      isError
+    } = this.props;
     return (
       <div>
         {isIdTable ? (
@@ -12,7 +17,11 @@ export default class Table extends Component {
             <tbody>
               {Object.values(tableData).map((data, key) => (
                 <tr key={key}>
-                  <TableRowHeader style={style} tableHeader={data.id} />
+                  <TableRowHeader
+                    isError={isError}
+                    style={style}
+                    tableHeader={data.id}
+                  />
                   <TableItem
                     tableData={data.name + " - " + data.abbreviation}
                   />
@@ -26,6 +35,7 @@ export default class Table extends Component {
               {tableDataSingleSeasonValues.map((data, key) => (
                 <tr key={key}>
                   <TableRowHeader
+                    isError={isError}
                     style={style}
                     tableHeader={regularSeasonHeaders[key]}
                   />

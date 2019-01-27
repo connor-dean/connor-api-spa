@@ -67,7 +67,8 @@ export default class SearchContainer extends Component {
       })
       .catch(error =>
         this.setState({
-          isError: true
+          isError: true,
+          statsSingleSeasonValues: []
         })
       );
   }

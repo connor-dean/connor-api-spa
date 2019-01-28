@@ -9,7 +9,8 @@ export default class SearchContainer extends Component {
     statsSingleSeasonValues: [],
     statsRegularSeasonValues: [],
     teamHeader: "",
-    isError: ""
+    isError: "",
+    isSubmitted: false
   };
 
   componentWillMount() {
@@ -26,7 +27,8 @@ export default class SearchContainer extends Component {
       statsSingleSeasonValues: [],
       statsRegularSeasonValues: [],
       teamHeader: "",
-      isError: false
+      isError: false,
+      isSubmitted: false
     });
   };
 
@@ -62,12 +64,14 @@ export default class SearchContainer extends Component {
           statsRegularSeasonValues: Object.values(
             jsonResult.stats[1].splits[0].stat
           ),
-          isError: false
+          isError: false,
+          isSubmitted: true
         });
       })
       .catch(error =>
         this.setState({
-          isError: true
+          isError: true,
+          statsSingleSeasonValues: []
         })
       );
   }
@@ -76,8 +80,9 @@ export default class SearchContainer extends Component {
     return (
       <React.Fragment>
         <div className="row">
-          <div className="col-3">
+          <div className="col-4">
             <InputForm
+              style={style.background}
               value={this.state.inputValue}
               input={"text"}
               placeholder={"Enter a team's ID..."}
@@ -87,13 +92,17 @@ export default class SearchContainer extends Component {
               onHandleReset={this.handleReset}
             />
             <TableContainer
+              isSubmitted={this.state.isSubmitted}
+              style={style.background}
               isIdTable={true}
               headerTitle={"Team IDs"}
               tableData={this.state.teamIdTable}
             />
           </div>
-          <div className="col-9">
+          <div className="col-4">
             <TableContainer
+              isSubmitted={this.state.isSubmitted}
+              style={style.background}
               isError={this.state.isError}
               isIdTable={false}
               headerTitle={this.state.teamHeader}
@@ -107,3 +116,12 @@ export default class SearchContainer extends Component {
     );
   }
 }
+
+const style = {
+  background: {
+    backgroundColor: "#f9f9f9",
+    borderRadius: "20px",
+    border: "2px solid #b6bcc2",
+    padding: "20px"
+  }
+};

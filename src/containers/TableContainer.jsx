@@ -8,13 +8,18 @@ export default class TableContainer extends Component {
       headerTitle,
       isIdTable,
       isError,
+      isSubmitted,
       key,
       tableData,
       tableDataSingleSeasonValues,
-      tableDataRegularSeasonValues
+      tableDataRegularSeasonValues,
+      style
     } = this.props;
+
+    const displayStyling = isIdTable || isSubmitted ? style : null;
+
     return (
-      <div className={"ml-5"}>
+      <div className={"ml-5 mt-3"} style={displayStyling}>
         <Header isError={isError} headerTitle={headerTitle} />
         <Table
           isIdTable={isIdTable}

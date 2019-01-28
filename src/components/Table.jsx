@@ -30,7 +30,7 @@ export default class Table extends Component {
             </tbody>
           </table>
         ) : (
-          <table className={"table"}>
+          <table className={"table table-striped"}>
             <tbody>
               {tableDataSingleSeasonValues.map((data, key) => (
                 <tr key={key}>
@@ -67,7 +67,7 @@ const regularSeasonHeaders = [
   "Point %",
   "Goals/Game",
   "Goals Against/Game",
-  "EVGGA Ratio",
+  "GGA Ratio",
   "Power Play %",
   "Power Play Goals",
   "Power Play Goals Against",

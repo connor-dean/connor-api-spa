@@ -77,7 +77,7 @@ export default class SearchContainer extends Component {
     return (
       <React.Fragment>
         <div className="row">
-          <div className="col-3">
+          <div className="col-4">
             <InputForm
               value={this.state.inputValue}
               input={"text"}
@@ -93,7 +93,7 @@ export default class SearchContainer extends Component {
               tableData={this.state.teamIdTable}
             />
           </div>
-          <div className="col-9">
+          <div className="col-4">
             <TableContainer
               isError={this.state.isError}
               isIdTable={false}

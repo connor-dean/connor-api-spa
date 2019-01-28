@@ -30,7 +30,7 @@ export default class Table extends Component {
             </tbody>
           </table>
         ) : (
-          <table className={"table"}>
+          <table className={"table table-striped"}>
             <tbody>
               {tableDataSingleSeasonValues.map((data, key) => (
                 <tr key={key}>

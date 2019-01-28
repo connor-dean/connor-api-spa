@@ -5,12 +5,12 @@ export default class Header extends Component {
     const isError = this.props.isError;
     const headerTitle = this.props.headerTitle;
     const headerStyle = isError
-      ? "alert alert-warning"
-      : "page-header mt-4 ml-4";
+      ? "alert alert-warning mt-5"
+      : "page-header mt-5 ml-2";
 
     return (
       <h3 className={headerStyle}>
-        <u>{isError ? "Error: Please check your input." : headerTitle}</u>
+        {isError ? "Error: Please check your input." : headerTitle}
       </h3>
     );
   }

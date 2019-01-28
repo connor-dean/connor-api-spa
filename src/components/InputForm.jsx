@@ -25,6 +25,11 @@ export default class InputForm extends Component {
           input={inputType}
           placeholder={placeholder}
           onChange={onChangeValue}
+          onKeyPress={event => {
+            if (event.key === "Enter") {
+              onClick();
+            }
+          }}
         />
         <button className={"btn btn-primary mr-1"} onClick={onClick}>
           {buttonText}

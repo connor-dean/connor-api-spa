@@ -67,7 +67,7 @@ const regularSeasonHeaders = [
   "Point %",
   "Goals/Game",
   "Goals Against/Game",
-  "EVGGA Ratio",
+  "GGA Ratio",
   "Power Play %",
   "Power Play Goals",
   "Power Play Goals Against",

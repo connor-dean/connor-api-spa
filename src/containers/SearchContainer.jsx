@@ -79,6 +79,7 @@ export default class SearchContainer extends Component {
         <div className="row">
           <div className="col-4">
             <InputForm
+              style={style.background}
               value={this.state.inputValue}
               input={"text"}
               placeholder={"Enter a team's ID..."}
@@ -88,6 +89,7 @@ export default class SearchContainer extends Component {
               onHandleReset={this.handleReset}
             />
             <TableContainer
+              style={style.background}
               isIdTable={true}
               headerTitle={"Team IDs"}
               tableData={this.state.teamIdTable}
@@ -95,6 +97,7 @@ export default class SearchContainer extends Component {
           </div>
           <div className="col-4">
             <TableContainer
+              style={style.background}
               isError={this.state.isError}
               isIdTable={false}
               headerTitle={this.state.teamHeader}
@@ -108,3 +111,12 @@ export default class SearchContainer extends Component {
     );
   }
 }
+
+const style = {
+  background: {
+    backgroundColor: "#f9f9f9",
+    borderRadius: "20px",
+    border: "2px solid #b6bcc2",
+    padding: "20px"
+  }
+};

@@ -11,10 +11,11 @@ export default class TableContainer extends Component {
       key,
       tableData,
       tableDataSingleSeasonValues,
-      tableDataRegularSeasonValues
+      tableDataRegularSeasonValues,
+      style
     } = this.props;
     return (
-      <div className={"ml-5"}>
+      <div className={"ml-5 mt-3"} style={style}>
         <Header isError={isError} headerTitle={headerTitle} />
         <Table
           isIdTable={isIdTable}

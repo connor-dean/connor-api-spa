@@ -14,14 +14,15 @@ export default class InputForm extends Component {
       buttonText,
       value,
       onChangeValue,
-      onHandleReset
+      onHandleReset,
+      style
     } = this.props;
     return (
-      <div className={"m-5"}>
+      <div className={"ml-5 mb-3 mt-3"} style={style}>
         <input
           value={value}
           style={style.inputStyle}
-          className={"form-control"}
+          className={"form-control mb-1"}
           input={inputType}
           placeholder={placeholder}
           onChange={onChangeValue}

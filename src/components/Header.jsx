@@ -5,8 +5,8 @@ export default class Header extends Component {
     const isError = this.props.isError;
     const headerTitle = this.props.headerTitle;
     const headerStyle = isError
-      ? "alert alert-warning mt-5"
-      : "page-header mt-5 ml-2";
+      ? "alert alert-warning"
+      : "page-header mt-2 ml-2 mb-3";
 
     return (
       <h3 className={headerStyle}>

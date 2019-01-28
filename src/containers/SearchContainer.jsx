@@ -9,7 +9,8 @@ export default class SearchContainer extends Component {
     statsSingleSeasonValues: [],
     statsRegularSeasonValues: [],
     teamHeader: "",
-    isError: ""
+    isError: "",
+    isSubmitted: false
   };
 
   componentWillMount() {
@@ -26,7 +27,8 @@ export default class SearchContainer extends Component {
       statsSingleSeasonValues: [],
       statsRegularSeasonValues: [],
       teamHeader: "",
-      isError: false
+      isError: false,
+      isSubmitted: false
     });
   };
 
@@ -62,7 +64,8 @@ export default class SearchContainer extends Component {
           statsRegularSeasonValues: Object.values(
             jsonResult.stats[1].splits[0].stat
           ),
-          isError: false
+          isError: false,
+          isSubmitted: true
         });
       })
       .catch(error =>
@@ -89,6 +92,7 @@ export default class SearchContainer extends Component {
               onHandleReset={this.handleReset}
             />
             <TableContainer
+              isSubmitted={this.state.isSubmitted}
               style={style.background}
               isIdTable={true}
               headerTitle={"Team IDs"}
@@ -97,6 +101,7 @@ export default class SearchContainer extends Component {
           </div>
           <div className="col-4">
             <TableContainer
+              isSubmitted={this.state.isSubmitted}
               style={style.background}
               isError={this.state.isError}
               isIdTable={false}

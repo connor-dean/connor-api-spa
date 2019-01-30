@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import InputForm from "../components/InputForm";
-import TableContainer from "./TableContainer";
+import InputForm from "../components/forms/InputForm";
+import IdTable from "../components/tables/IdTable";
+import SingleSeasonStatsTable from "../components/tables/SingleSeaonStatsTable";
 
 export default class SearchContainer extends Component {
   state = {
     inputValue: "",
     teamIdTable: [],
     statsSingleSeasonValues: [],
-    statsRegularSeasonValues: [],
     teamHeader: "",
     isError: "",
     isSubmitted: false
@@ -18,14 +18,13 @@ export default class SearchContainer extends Component {
   }
 
   handleChangeValue = e => {
-    this.setState({ inputValue: e.target.value }, () => {});
+    this.setState({ inputValue: e.target.value });
   };
 
   handleReset = () => {
     this.setState({
       inputValue: "",
       statsSingleSeasonValues: [],
-      statsRegularSeasonValues: [],
       teamHeader: "",
       isError: false,
       isSubmitted: false
@@ -61,9 +60,6 @@ export default class SearchContainer extends Component {
           statsSingleSeasonValues: Object.values(
             jsonResult.stats[0].splits[0].stat
           ),
-          statsRegularSeasonValues: Object.values(
-            jsonResult.stats[1].splits[0].stat
-          ),
           isError: false,
           isSubmitted: true
         });
@@ -78,41 +74,39 @@ export default class SearchContainer extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div className="row">
-          <div className="col-4">
-            <InputForm
-              style={style.background}
-              value={this.state.inputValue}
-              input={"text"}
-              placeholder={"Enter a team's ID..."}
-              buttonText={"Submit"}
-              onClick={() => this.callApi(this.state.inputValue)}
-              onChangeValue={this.handleChangeValue}
-              onHandleReset={this.handleReset}
-            />
-            <TableContainer
-              isSubmitted={this.state.isSubmitted}
-              style={style.background}
-              isIdTable={true}
-              headerTitle={"Team IDs"}
-              tableData={this.state.teamIdTable}
-            />
-          </div>
-          <div className="col-4">
-            <TableContainer
-              isSubmitted={this.state.isSubmitted}
-              style={style.background}
-              isError={this.state.isError}
-              isIdTable={false}
-              headerTitle={this.state.teamHeader}
-              tableHeader={this.state.statsSingleSeason}
-              tableDataSingleSeasonValues={this.state.statsSingleSeasonValues}
-              tableDataRegularSeasonValues={this.state.statsRegularSeasonValues}
-            />
-          </div>
+      <div className="row">
+        <div className="col-4">
+          <InputForm
+            style={style.background}
+            value={this.state.inputValue}
+            input="text"
+            placeholder="Enter a team's ID from the table below..."
+            buttonText="Submit"
+            onClick={() => this.callApi(this.state.inputValue)}
+            onChangeValue={this.handleChangeValue}
+            onHandleReset={this.handleReset}
+          />
+          <IdTable
+            isSubmitted={this.state.isSubmitted}
+            style={style.background}
+            isIdTable={true}
+            headerTitle="Team IDs"
+            tableData={this.state.teamIdTable}
+          />
         </div>
-      </React.Fragment>
+        <div className="col-4">
+          <SingleSeasonStatsTable
+            isSubmitted={this.state.isSubmitted}
+            style={style.background}
+            isError={this.state.isError}
+            errorMessage="Error: Please check your input."
+            isIdTable={false}
+            headerTitle={this.state.teamHeader}
+            tableHeader={this.state.statsSingleSeason}
+            tableDataSingleSeasonValues={this.state.statsSingleSeasonValues}
+          />
+        </div>
+      </div>
     );
   }
 }
@@ -122,6 +116,7 @@ const style = {
     backgroundColor: "#f9f9f9",
     borderRadius: "20px",
     border: "2px solid #b6bcc2",
-    padding: "20px"
+    padding: "20px",
+    marginLeft: 50
   }
 };

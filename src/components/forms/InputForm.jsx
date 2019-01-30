@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Button from "./Button";
+import Button from "../common/Button";
 
 export default class InputForm extends Component {
   state = {
@@ -17,12 +17,13 @@ export default class InputForm extends Component {
       onHandleReset,
       style
     } = this.props;
+
     return (
-      <div className={"ml-5 mb-3 mt-3"} style={style}>
+      <div className="ml-5 mb-3 mt-3" style={style}>
         <input
           value={value}
           style={style.inputStyle}
-          className={"form-control mb-1"}
+          className="form-control mb-1"
           input={inputType}
           placeholder={placeholder}
           onChange={onChangeValue}
@@ -32,24 +33,15 @@ export default class InputForm extends Component {
             }
           }}
         />
-        <button className={"btn btn-primary mr-1"} onClick={onClick}>
+        <button className="btn btn-primary mr-1" onClick={onClick}>
           {buttonText}
         </button>
         <Button
-          className={"btn btn-secondary"}
-          buttonText={"Reset"}
+          className="btn btn-secondary"
+          buttonText="Reset"
           onClick={onHandleReset}
         />
       </div>
     );
   }
 }
-
-const style = {
-  inputStyle: {
-    padding: 10,
-    marginRight: 5,
-    marginBottom: 5,
-    width: "200px"
-  }
-};

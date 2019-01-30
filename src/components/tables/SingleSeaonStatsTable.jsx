@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TableItem from "./TableItem";
 import TableRowHeader from "./TableRowHeader";
 import Header from "../common/Header";
+import PropTypes from "prop-types";
 
 export default class SingleSeasonStatsTable extends Component {
   render() {
@@ -74,3 +75,13 @@ const singleSeasonHeaders = [
   "Shooting %",
   "Save %"
 ];
+
+SingleSeasonStatsTable.propTypes = {
+  isIdTable: PropTypes.bool,
+  isSubmitted: PropTypes.bool,
+  tableDataSingleSeasonValues: PropTypes.array,
+  isError: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  headerTitle: PropTypes.string,
+  style: PropTypes.object
+};

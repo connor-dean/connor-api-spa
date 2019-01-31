@@ -1,6 +1,6 @@
 # Summary
 
-This is a single web application that calls to an API located at https://github.com/dword4/nhlapi that displays NHL team statistics. The table to the left of the screen displays the available teams' IDs. Input that ID into the form to display their season statistics.
+This is a single web application that calls to an API located at https://github.com/dword4/nhlapi that displays NHL team statistics. The table to the left of the page displays the available teams' IDs. Input that ID into the form to display their season statistics.
 
 Navigate to the root of this directory and run the following command in the terminal to run the application:
 ```sh

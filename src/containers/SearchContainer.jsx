@@ -9,7 +9,7 @@ export default class SearchContainer extends Component {
     teamIdTable: [],
     statsSingleSeasonValues: [],
     teamHeader: "",
-    isError: "",
+    isError: false,
     isSubmitted: false
   };
 

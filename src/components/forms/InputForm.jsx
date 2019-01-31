@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../common/Button";
+import PropTypes from "prop-types";
 
 export default class InputForm extends Component {
   state = {
@@ -45,3 +46,14 @@ export default class InputForm extends Component {
     );
   }
 }
+
+InputForm.propTypes = {
+  inputType: PropTypes.string,
+  placeholder: PropTypes.string,
+  onClick: PropTypes.func,
+  buttonText: PropTypes.string,
+  value: PropTypes.string,
+  onChangeValue: PropTypes.func,
+  onHandleReset: PropTypes.func,
+  style: PropTypes.object
+};

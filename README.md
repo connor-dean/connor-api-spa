@@ -7,3 +7,7 @@ Navigate to the root of this directory and run the following command in the term
 npm start
 ```
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+# Technology
+
+This application was written with React and type checked with PropTypes, styling was done with Bootstrap.

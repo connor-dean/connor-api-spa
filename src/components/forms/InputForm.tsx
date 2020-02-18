@@ -1,15 +1,28 @@
-import React, { Component } from "react";
-import Button from "../common/Button";
-import PropTypes from "prop-types";
+import * as React from 'react';
+import Button from '../common/Button.tsx';
+import CSS from 'csstype';
 
-export default class InputForm extends Component {
+type InputFormProps = {
+  placeholder: string;
+  onClick: () => void
+  buttonText: string;
+  value: string;
+  onChangeValue: () => void,
+  onHandleReset: () => void,
+  style: CSS.Properties; // TODO update below after updating SearchContainer
+}
+
+type InputFormState = {
+  inputValue: string;
+}
+
+export default class InputForm extends React.Component<InputFormProps, InputFormState> {
   state = {
-    inputValue: ""
+    inputValue: ''
   };
 
   render() {
     const {
-      inputType,
       placeholder,
       onClick,
       buttonText,
@@ -25,7 +38,6 @@ export default class InputForm extends Component {
           value={value}
           style={style.inputStyle}
           className="form-control mb-1"
-          input={inputType}
           placeholder={placeholder}
           onChange={onChangeValue}
           onKeyPress={event => {
@@ -46,14 +58,3 @@ export default class InputForm extends Component {
     );
   }
 }
-
-InputForm.propTypes = {
-  inputType: PropTypes.string,
-  placeholder: PropTypes.string,
-  onClick: PropTypes.func,
-  buttonText: PropTypes.string,
-  value: PropTypes.string,
-  onChangeValue: PropTypes.func,
-  onHandleReset: PropTypes.func,
-  style: PropTypes.object
-};

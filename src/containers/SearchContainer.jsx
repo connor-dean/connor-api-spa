@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import InputForm from "../components/forms/InputForm";
-import IdTable from "../components/tables/IdTable";
-import SingleSeasonStatsTable from "../components/tables/SingleSeaonStatsTable";
+import React, { Component } from 'react';
+import InputForm from '../components/forms/InputForm.tsx';
+import IdTable from '../components/tables/IdTable.tsx';
+import SingleSeasonStatsTable from '../components/tables/SingleSeaonStatsTable.tsx';
 
 export default class SearchContainer extends Component {
   state = {
-    inputValue: "",
+    inputValue: '',
     teamIdTable: [],
     statsSingleSeasonValues: [],
-    teamHeader: "",
+    teamHeader: '',
     isError: false,
     isSubmitted: false
   };
@@ -23,16 +23,16 @@ export default class SearchContainer extends Component {
 
   handleReset = () => {
     this.setState({
-      inputValue: "",
+      inputValue: '',
       statsSingleSeasonValues: [],
-      teamHeader: "",
+      teamHeader: '',
       isError: false,
       isSubmitted: false
     });
   };
 
   initializeIdTable() {
-    fetch("https://statsapi.web.nhl.com/api/v1/teams")
+    fetch('https://statsapi.web.nhl.com/api/v1/teams')
       .then(result => {
         return result.json();
       })
@@ -50,7 +50,7 @@ export default class SearchContainer extends Component {
   }
 
   callApi(teamId) {
-    fetch("https://statsapi.web.nhl.com/api/v1/teams/" + teamId + "/stats")
+    fetch('https://statsapi.web.nhl.com/api/v1/teams/' + teamId + '/stats')
       .then(result => {
         return result.json();
       })
@@ -79,7 +79,6 @@ export default class SearchContainer extends Component {
           <InputForm
             style={style.background}
             value={this.state.inputValue}
-            input="text"
             placeholder="Enter a team's ID from the table below..."
             buttonText="Submit"
             onClick={() => this.callApi(this.state.inputValue)}
